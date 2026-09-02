@@ -1,167 +1,49 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function SimpleCalculator() {
-  const [displayValue, setDisplayValue] = useState('0');
-  const [firstValue, setFirstValue] = useState<number | null>(null);
-  const [operator, setOperator] = useState<string | null>(null);
-  const [waitingForNextValue, setWaitingForNextValue] = useState(false);
+interface CounterProps {
+  step?: number;
+}
 
-  const handleNumber = (num: string) => {
-    if (waitingForNextValue) {
-      setDisplayValue(num);
-      setWaitingForNextValue(false);
-    } else {
-      setDisplayValue(displayValue === '0' ? num : displayValue + num);
-    }
+export default function CounterApp({ step = 1 }: CounterProps) {
+  const [count, setCount] = useState<number>(0);
+
+  const handleIncrease = () => {
+    setCount(prev => prev + step);
   };
 
-  const handleOperator = (nextOperator: string) => {
-    const inputValue = parseFloat(displayValue);
-
-    if (firstValue === null) {
-      setFirstValue(inputValue);
-    } else if (operator) {
-      const result = calculate(firstValue, inputValue, operator);
-      setDisplayValue(String(result));
-      setFirstValue(result);
-    }
-
-    setWaitingForNextValue(true);
-    setOperator(nextOperator);
+  const handleDecrease = () => {
+    setCount(prev => (prev - step < 0 ? 0 : prev - step));
   };
 
-  const calculate = (first: number, second: number, op: string) => {
-    switch (op) {
-      case '+': return first + second;
-      case '-': return first - second;
-      case '×': return first * second;
-      case '÷': return second === 0 ? 0 : first / second;
-      default: return second;
-    }
-  };
-
-  const handleEqual = () => {
-    const inputValue = parseFloat(displayValue);
-
-    if (firstValue !== null && operator) {
-      const result = calculate(firstValue, inputValue, operator);
-      setDisplayValue(String(result));
-      setFirstValue(null);
-      setOperator(null);
-      setWaitingForNextValue(true);
-    }
-  };
-
-  const handleClear = () => {
-    setDisplayValue('0');
-    setFirstValue(null);
-    setOperator(null);
-    setWaitingForNextValue(false);
+  const handleReset = () => {
+    setCount(0);
   };
 
   return (
     <View style={styles.container}>
-      {/* Screen Display */}
-      <View style={styles.displayContainer}>
-        <Text style={styles.subDisplayText}>
-          {firstValue !== null ? `${firstValue} ${operator || ''}` : ''}
-        </Text>
-        <Text style={styles.displayText} numberOfLines={1} adjustsFontSizeToFit>
-          {displayValue}
-        </Text>
-      </View>
-
-      {/* Keypad Grid */}
-      <View style={styles.keypad}>
-        <View style={styles.row}>
-          <TouchableOpacity style={[styles.button, styles.clearBtn]} onPress={handleClear}>
-            <Text style={[styles.buttonText, styles.clearBtnText]}>AC</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorBtn]} onPress={() => handleOperator('÷')}>
-            <Text style={styles.operatorText}>÷</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('7')}>
-            <Text style={styles.buttonText}>7</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('8')}>
-            <Text style={styles.buttonText}>8</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('9')}>
-            <Text style={styles.buttonText}>9</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorBtn]} onPress={() => handleOperator('×')}>
-            <Text style={styles.operatorText}>×</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('4')}>
-            <Text style={styles.buttonText}>4</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('5')}>
-            <Text style={styles.buttonText}>5</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('6')}>
-            <Text style={styles.buttonText}>6</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorBtn]} onPress={() => handleOperator('-')}>
-            <Text style={styles.operatorText}>−</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('1')}>
-            <Text style={styles.buttonText}>1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('2')}>
-            <Text style={styles.buttonText}>2</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('3')}>
-            <Text style={styles.buttonText}>3</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorBtn]} onPress={() => handleOperator('+')}>
-            <Text style={styles.operatorText}>+</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.row}>
-          <TouchableOpacity style={[styles.button, styles.zeroBtn]} onPress={() => handleNumber('0')}>
-            <Text style={styles.buttonText}>0</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => handleNumber('.')}>
-            <Text style={styles.buttonText}>.</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.equalBtn]} onPress={handleEqual}>
-            <Text style={styles.equalText}>=</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-=======
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-     
-      <Text style={styles.appTitle}>My Student Portal</Text>
-
-      
-      <Text style={styles.studentName}>Adam Toriano</Text>
-
-      
-      <Text style={styles.courseSection}>BSIT - CCE-106</Text>
-
-      
-      <Text style={styles.appBio}>
-        Welcome to my first React Native app! This project displays student profile details and custom styling using Expo.
+      <Text style={styles.title}>Guided Mini Project: Counter App</Text>
+      <Text style={styles.subtitle}>
+        A simple app that proves students understand state and events.
       </Text>
->>>>>>> parent of 1215429 (Update index.tsx file)
+
+      <View style={styles.displayBox}>
+        <Text style={styles.countText}>{count}</Text>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.button, styles.increaseBtn]} onPress={handleIncrease}>
+          <Text style={styles.buttonText}>Increase</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, styles.decreaseBtn]} onPress={handleDecrease}>
+          <Text style={styles.buttonText}>Decrease</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, styles.resetBtn]} onPress={handleReset}>
+          <Text style={styles.buttonText}>Reset</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -169,106 +51,63 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-<<<<<<< HEAD
-    backgroundColor: '#0f172a',
-    justifyContent: 'flex-end',
+    backgroundColor: '#1e293b',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 20,
   },
-  displayContainer: {
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-    padding: 20,
-    marginBottom: 10,
-  },
-  subDisplayText: {
-    fontSize: 24,
-    color: '#64748b',
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#ffffff',
     marginBottom: 5,
+    textAlign: 'center',
   },
-  displayText: {
-    fontSize: 56,
-    color: '#f8fafc',
-    fontWeight: '300',
+  subtitle: {
+    fontSize: 12,
+    color: '#94a3b8',
+    marginBottom: 30,
+    textAlign: 'center',
   },
-  keypad: {
-    gap: 12,
+  displayBox: {
+    width: 220,
+    height: 140,
+    backgroundColor: '#0f172a',
+    borderWidth: 1,
+    borderColor: '#334155',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    marginBottom: 30,
   },
-  row: {
+  countText: {
+    fontSize: 64,
+    fontWeight: 'bold',
+    color: '#ffffff',
+  },
+  buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
+    gap: 10,
   },
   button: {
-    flex: 1,
-    height: 70,
-    backgroundColor: '#1e293b',
-    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    minWidth: 85,
     alignItems: 'center',
-    borderRadius: 16,
   },
-  zeroBtn: {
-    flex: 2.1,
+  increaseBtn: {
+    backgroundColor: '#86efac',
   },
-  operatorBtn: {
-    backgroundColor: '#334155',
+  decreaseBtn: {
+    backgroundColor: '#fde047',
   },
-  equalBtn: {
-    backgroundColor: '#06b6d4',
-  },
-  clearBtn: {
-    flex: 3.2,
-    backgroundColor: '#f43f5e',
+  resetBtn: {
+    backgroundColor: '#93c5fd',
   },
   buttonText: {
-    fontSize: 26,
-    color: '#f8fafc',
-    fontWeight: '500',
-  },
-  operatorText: {
-    fontSize: 28,
-    color: '#38bdf8',
-    fontWeight: '600',
-  },
-  clearBtnText: {
-    fontWeight: 'bold',
-  },
-  equalText: {
-    fontSize: 32,
-    color: '#ffffff',
-    fontWeight: 'bold',
-=======
-    backgroundColor: '#1e293b',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  appTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#38bdf8',
-    marginBottom: 15,
-    textTransform: 'uppercase',
-  },
-  studentName: {
-    fontSize: 22,
-    fontWeight: '600',
-    color: '#f8fafc',
-    marginBottom: 5,
-  },
-  courseSection: {
-    fontSize: 16,
-    color: '#94a3b8',
-    fontStyle: 'italic',
-    marginBottom: 20,
-  },
-  appBio: {
     fontSize: 14,
-    color: '#e2e8f0',
-    textAlign: 'center',
-    lineHeight: 22,
-    backgroundColor: '#334155',
-    padding: 15,
-    borderRadius: 8,
->>>>>>> parent of 1215429 (Update index.tsx file)
+    fontWeight: 'bold',
+    color: '#0f172a',
   },
 });
