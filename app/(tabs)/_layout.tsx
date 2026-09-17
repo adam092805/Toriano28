@@ -35,6 +35,12 @@ export default function TabLayout() {
           title: 'Profile',
         }}
       />
+      <Tabs.Screen
+  name="lab08"
+  options={{
+    title: 'Attendance List',
+  }}
+/>
     </Tabs>
   );
 }
