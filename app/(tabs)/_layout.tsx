@@ -1,46 +1,11 @@
-import { Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 
-export default function TabLayout() {
+export default function Layout() {
   return (
-    <Tabs
+    <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: '#0F172A' },
-        headerTintColor: '#F8FAFC',
-        tabBarStyle: { backgroundColor: '#0F172A', borderTopColor: '#1E293B' },
-        tabBarActiveTintColor: '#38BDF8',
-        tabBarInactiveTintColor: '#94A3B8',
+        headerShown: false, // Tinatagho nito ang "Dashboard" top header
       }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Dashboard',
-        }}
-      />
-      <Tabs.Screen
-        name="events"
-        options={{
-          title: 'Events',
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-        }}
-      />
-      <Tabs.Screen
-  name="lab08"
-  options={{
-    title: 'Attendance List',
-  }}
-/>
-    </Tabs>
+    />
   );
 }
