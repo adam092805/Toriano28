@@ -1,16 +1,10 @@
-import { Stack } from 'expo-router';
+import { Slot } from 'expo-router';
+import { AuthProvider } from '../context/AuthContext';
 
 export default function RootLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: { backgroundColor: '#0F172A' },
-        headerTintColor: '#F8FAFC',
-        headerTitleStyle: { fontWeight: 'bold' },
-      }}
-    >
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="event/[id]" options={{ title: 'Event Details' }} />
-    </Stack>
+    <AuthProvider>
+      <Slot />
+    </AuthProvider>
   );
 }
